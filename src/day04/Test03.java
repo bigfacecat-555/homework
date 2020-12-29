@@ -1,4 +1,7 @@
 package day04;
+
+import java.util.ArrayList;
+
 /**
  * 创建一个List集合(ArrayList,LinkedList均可)
  * 存放元素"one","two","three","four"。
@@ -10,5 +13,18 @@ package day04;
  *
  */
 public class Test03 {
-
+    public static void main(String[] args) {
+        ArrayList<String> col = new ArrayList<>();
+        col.add("one");
+        col.add("two");
+        col.add("three");
+        col.add("four");
+        System.out.println(col.get(1));
+        col.set(2,"3");
+        System.out.println(col);
+        col.add(1,"2");
+        System.out.println(col);
+        col.remove(2);
+        System.out.println(col);
+    }
 }
