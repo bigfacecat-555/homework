@@ -1,4 +1,9 @@
 package day05;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Objects;
+
 /**
  * 定义私有属性:
  * String name;
@@ -17,6 +22,83 @@ package day05;
  * @author Bonnie
  *
  */
-public class Emp {
+public class Emp implements Comparable<Emp>{
+    private String name;
+    private int age;
+    private String gender;
+    private int salary;
+    private Date hiredate;
 
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+    @Override
+    public String toString() {
+        return "Emp{" +
+                "名字='" + name + '\'' +
+                ", 年龄=" + age +
+                ", 性别='" + gender + '\'' +
+                ", 薪资=" + salary +
+                ", 入职时间=" + sdf.format(hiredate) +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+        Emp emp = (Emp) object;
+        return age == emp.age &&
+                Objects.equals(name, emp.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public Date getHiredate() {
+        return hiredate;
+    }
+
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
+    }
+
+
+    @Override
+    public int compareTo(Emp o) {
+        return o.age - this.age;
+    }
 }
