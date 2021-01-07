@@ -1,8 +1,14 @@
 package day06;
 
-import java.io.File;
-import java.io.IOException;
+import jdk.jfr.StackTrace;
+
+import java.io.*;
 import java.net.URISyntaxException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.RandomAccess;
 
 /**
  * 将emp.dat文件中所有员工解析出来，并创建为若干Emp实例存入一个
@@ -21,10 +27,31 @@ import java.net.URISyntaxException;
  * @author Bonnie
  *
  */
-public class Test13 {
-	public static void main(String[] args) throws URISyntaxException, IOException {
+public class   Test13 {
+	public static void main(String[] args) throws URISyntaxException, IOException, ParseException {
 		//使用类加载器加载当前包中的emp.dat文件
 		File file = new File(Test13.class.getClassLoader().getResource("day06/emp.dat").toURI());
-		
+		RandomAccessFile r = new RandomAccessFile(file, "r");
+		r.seek(0);
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		ArrayList<Emp> emps = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			String name = getStr(r,32);
+			int age = r.readInt();
+			String gender = getStr(r,10);
+			int salary = r.readInt();
+			String hiredate = getStr(r,30);
+			System.out.println("");
+			Emp newEmp = new Emp(name,age,gender,salary,simpleDateFormat.parse(hiredate));
+			emps.add(newEmp);
+		}
+		System.out.println(emps.toString());
+
+
+	}
+	public static String getStr(RandomAccessFile r,int i) throws IOException {
+		byte[] bytes = new byte[i];
+		r.read(bytes);
+		return new String(bytes,"UTF-8");
 	}
 }
